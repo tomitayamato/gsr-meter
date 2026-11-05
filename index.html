@@ -1,0 +1,1093 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>嘘発見器</title>
+<!-- ホーム画面に追加したとき、アドレスバーなしの全画面で起動する -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="嘘発見器">
+<meta name="theme-color" content="#22383c">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* 構成: 検査器の筐体の中を、記録紙が上から下のスリットへ流れていく一画面アプリ */
+@font-face { font-family: "LD Serif"; src: url(data:font/woff;base64,d09GRk9UVE8AAA2sAA8AAAAAD/AAAgCDAAAAAAAAAAAAAAAAAAAAAAAAAABCQVNFAAAMJAAAAI4AAADeQuNP7kNGRiAAAAFgAAAIzwAACbz+Z3f5R1BPUwAADLQAAAAgAAAAIER2THVHU1VCAAAM1AAAAJoAAADws6rHmU9TLzIAAAqYAAAAUAAAAGC5Nu8wVk9SRwAADXAAAAAIAAAACANxAABjbWFwAAAL0AAAAEAAAABM83C5qWhlYWQAAAowAAAANgAAADYol7OzaGhlYQAACngAAAAgAAAAJAv9B99obXR4AAAKaAAAABAAAAAQBGAAwW1heHAAAAFYAAAABgAAAAYAB1AAbmFtZQAACugAAADlAAAByiFoO5Rwb3N0AAAMEAAAABMAAAAg/7gAMnZoZWEAAA2IAAAAIgAAACQMdRcHdm10eAAADXgAAAAQAAAAEARWAH8AAFAAAAcAAHicbVZrUFRHFu4L3u6b2whLwmXvAJc7IqKCgBAiRsVn0CBIRDQCxlJU5KXMBFE0oqKgKMz7PYMMMGgiPhAkMqAxqJho3E22spuntZqUW6lsUqlU7VatfU3PJlvDVvbP5lefPn3q9PlOn/OdZsCUEMAwTFShpkFTXFFfvXPF6vwabepyza4dQf18JVaJ6wiLVyRGiQ9R5FAlasrPbT+fj8N1cSic1YfJEgC//BKWoBRGKJvCZsRxiWGJyvZIgBgGhm8/0H52YtkOzbaKvB0VdQ3VDQdWaLQH6qsrqxrUmXMzslMz52Y+r540UM+qamjQLkhPb2xsTCsPatK2a3anz05TByNTV+9Rl6sb6st3VOwur69Va3aqV2k0lbsq1Hl129MmLSaDV69Yna9evVYdDP//tL8BMXVVRV1FffX23zrK21Ghqawv11btASLDwLBno2PVibPTs17MWZabV1hcsnlbjbbhjXmSQcYPxZJiFnfEvLqcxdCqwdCmYTG01bHYrZYwsgZ3HrvJgQVrHYtfkPQyHu+IwTc7YvBERww2OQzYa9HJ2GfVybgnKHWbdTIWN5exGPUY3TazFUO3w+TAQSfdOrveikHG3zM1mdrM12svm4dA8K0YhgEoBDAglMkNKQjVTtGx5+EKdfjTR+SccGzhgazGIneL+M7IyP0LH/a0u6xGFxdIUVQCBSi9hSW/VxjUpm2tPbHPflwc6Lx+7q2eGfzcx+JpmCRVDBTc0MUUL2ez34d9Bqtd56IJTpHmpiIacYOlvYguO0DX0Fg6M95+lKgffUDYNwlUudfbVrWsvbTtaqd7hKMhdNNMSfkmWaq6tPbdBOk18jn0GswWnYOGO0WqbELkr6hzGk+hQ6QFqHm4bnTtCOe8p793O6YffWtltSita98P8SQFftV/ZqizzVTjltvvskdgc9WxfcdbuNbWox1NsTQRvt6h88lXEFnozuB3vlk43BGz+eVNbezdFfwJwgikCJaWsFSGgdpeIZCar6Si9HPCvxkPGh7stcsk4g/Zy3ll7/N86ifPSxvhnKts+AVl3myJOOGahZk59HdF5iPisGPINeDm6NVM3k9C871oYLzXppNJYxqf+EAseZVNhlr749GPbl6/rSIZcLRgfOOXW0+cEBOSefpkHj9E8MpcnhxGJv3NN4y3T18941HpHDTbSfHFBe+pyAPocSziCxez9Afo9Dg6bZ7eky6LyTXnonja7LIYY0jpC/z0L4MXzZrN0+88aGSs1y5fIXDzaXRYe1CzX8PNJxkCySGQ5iBSQsoEejmLP0Omlnahgdtes04mW1G30WMzWykzTVIn80/oiaD9VJqDAn2BCYHkkVCah8iVaJJHMM1D4U+nKcOCm0SUvMST0sm6tFgpk85TJpmn95EHdnYajG65p6Gnxlz35Wt/JFE0uY8zGnR6XUwgq0a4RridXcjpMhhc8sHqxkptFUc/TJTIAFydk7Kcxq03HxGv2Aftl5wcHe9EI2M+u3yVhGwIZneuRPbO5KdP5jYF1tt/9H86fvOOigjQX3ir5IvylmNiYjJP6Tx+gDyz1osu3e5eyruNN5pM/8vufDuNuLBgQkUevczTv8BOr6vb2d17ym02uigeFh0mq8kQQ1bP5BNS+KTZPP3eg/yjPpuseOkHAi2iz5AiRAejaRENIUVIOaP4BZpNI0g2ojejaTblSDYKJ03KOeEKidziRXaHXu+QD9bur66v4ejEdIklZ2D+ktTlVLXe3CxetF6w9ds4emc+/zbh1y3hyR7UZXRZzZbps/hEuNND0OhXd96/p/oOktQNJHrR7dKvNcNkNv3kA24lnzNZHe/+iuKk22KaRGExGg36GFKQx9NQSBk/Sx96kH8sCEMVfW5Pf5Wz9vGWOySFvmLkvCRqy0KeFGRJFMzhKVTz9J4H+frMltPym4GHwhCBwcq+5bXqZHI0iU/6XCzbyM5I5elTDxob67PJBBKjQNdQSNYg6o+mayhP1iBlQLkl0HQaRdIRHdULNINGkgwUTqY8LRJajg/UnF9vKFOd29vf0e3m1i5ZujqjzHJE/Nz30fn3Bg3N4hdUgu01LN2fKJFd8DANLaaAbsgyN4tk5OOPieAhPEciaSnM6d77Q/xjSFLe7rnma3HvcmXzB8uathxtam1pPdXczh3Z266NXQk1bWaPTBaSXYn80EupUsGL7Mtk8a1lfEGKtG4xS7+GTz797PtrTxJ4Cr4T8wtYWjdDIpVw/zrN+sqNzpGKe1Tt5MhngVcE3SWWxJGpdDEifqVOaKjcsn7btlrf7jPatyZ8d/uHzr7I0/A/i/srdxZXbqnw776x771DreIdeoxE0ASyLLXr1uDl6xaDU1zat/TiqpG73vtn3+71tdnMZhsXTjY87RMCf+pC77xz1i13e9EhmpObQCtWGA6LpH+MYAJ8pJz7jJ6Ai3sb/xH/T0gWXe291tvqqnXKp4jMHoGN+U0lzftbj7adPNTOtR/SdNTGZsBdbUa3TGr9Jat4ZR/qMbmsFitl/yYWF7IBAIP8rRwP9AuBSBKrRMK3pgQiiepXIVqJhOEghGH45xR1WJIhjlv0rDItLMkUxy159qdvhZ+aokzPgeTg0EFgKogCKhAPEkAySANZYAFYClaCArAOlIGtoALsBvXgDXAMtAML8AAf6AeXwQgYBxPgPvgYfAEegW/Aj+BfIMBAJoKJYdSQho6w2GCy6O3Yp7cbLHY8mJsiYZQkleNsyYbRaYPDYrLgxbwFPxBLN7B4suQxpKF+Fj8Qyzaw+KG4sXhSM8pi1GV0W00W/EgsWcfiwZUpEnbpHBadQ4U9aAEf9Oe0ms3Yg/zXfTb5v/ZmK/ag0Wt9NhnLJ0ko2wzxJDHYZexrs5nMduwPEhUOck66hNMkeetg7hwJl8/lMfIGGxp3ocvjcyVs0cmkCeHgPB3EnejiWIaEUbfeZtO7ONyFBm5lSpNLuoTJwcl5r5dxNxq+0xf8F8ySDHL59GDb4zR++iwe/wc9GgkMAAABAAAAAgCDKfNEl18PPPUAAwPoAAAAAOEBt6wAAAAA4QG3rPwN++oLbgcOAAEAAwACAAAAAAAAA+gAZABBABgAGwAiABwAI3icY2BkYGCp//eIgYF7xx/ev87ceQyMDKiAEQCXvAXseJxjYGa+w7SHgZWBgamLKYKBgcEbQjPGMRgxmjAwMDGxMyAABxLb3d/fnUEhTKKzm7ngfwcDA0s9oxwDAwMjSI6JiekmAwODAgMbAByHCwZ4nI3Q3UoCURSG4ce0v7sYOoiCHH+CgjzSCsMggySiM9MRrWykxDrqfrqRLqgriHbDeCqbDS+s791rrY1N94oKpW30yLhgRy/jNVsWGRdd+My45MB3xuvu/GS8YbfQ8SVSV1VzrByo7lCkaSj1IBHZMzY3N3OiouI9nFg/z8QGUlMV+2JXUnOpyI3Eq4mRyKmOS5GOay2pZ0N1sWro2dDW1dXWyP2l/e8+minnbkPTma6W8xU6Rrl3GxJvJlIvYfvlDOPwziBUFiI1cbhVDVN9T5KQGEl8hL/5s49CYqWpfwENikAaAAAAeJxjYGBgYmBgYGZgYBBhYGZgBNMsDBYMDAxcDBwMTAxMYRJhGWVVnd3//zMwINgrX66c1dldVg3WAQUAp3IPu3icY2BmAIP/WxmMGLAAACzCAeoAeJyljy0OwjAYQN9HG0AgEISgJhAI0jNMERSKcIGyvzYbXdJMwAUIR+AEHIZLjSzBIXnymZeHAFMcOZrJbn84YbJbbEirWNSkzoYK42zwmNoGi2lsF0gZMzBCk7Bmw/NrFJoZcxbckf6FqCPSP9As0T4rzz4rO58XbWwv4a/i9qe4QkgQ9Wa4Eq4fFmkoRAAAAAEAAAAKABwAHgABREZMVAAIAAQAAAAA//8AAAAAAAB4nF2LMQrCQBBF38bFSGoLCRZbiFVK2ROILCgImirdEiRKlgjBRvBMXjGyk1Q2b/7M/IcCMj58SfeHU0lRv/uAbfpbi737rhE+sK3vPDb4V4dFAwxDJPp4vhjWlXOGTeWuhqJypWEnDTU1VUwyk2nO0OFZB3KhEW6FBYyetBhdMTUZGTk5qVwW02/1ty9RzCVHK+ZkzD/5IiSiAAAAAQAAA3AAAAPoAAAAJAAzAC8AKAAbACR4nGNgFGBg/PKPh4GBe8d//r9O3HkMDAyMDMiAEQCPyAWcAAA=) format("woff"); font-weight: 700; font-display: block; }
+@font-face { font-family: "LD Sans"; src: url(data:font/woff;base64,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) format("woff"); font-weight: 900; font-display: block; }
+
+:root {
+  color-scheme: dark;
+  --case: #22383c;        /* 筐体の塗装 */
+  --case-hi: #31504f;
+  --case-lo: #142427;
+  --paper: #e3eee2;       /* 記録紙 */
+  --grid: #b6d4c3;
+  --grid-major: #86b5a0;
+  --hole: #142427;
+  --ink: #1d2a70;         /* 記録インク */
+  --brass: #c9a75c;
+  --ivory: #efe8d6;
+  --muted: #a9bdb8;
+  --needle: #2c3336;
+  --lamp: #4a4538;
+  --lamp-glow: transparent;
+  --face-display: "LD Serif", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --face-label: "LD Sans", "Hiragino Kaku Gothic StdN", "Hiragino Sans", sans-serif;
+  --face-body: -apple-system, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", sans-serif;
+  --face-figure: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --gutter-l: max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r: max(16px, env(safe-area-inset-right, 0px));
+}
+:root.testing { --lamp: #f2b53b; --lamp-glow: rgba(242, 181, 59, .55); }
+:root.lie {
+  --case: #8c0a14;
+  --case-hi: #a80f1b;
+  --case-lo: #5c060d;
+  --paper: #c5101d;
+  --grid: #d7454e;
+  --grid-major: #e4696f;
+  --hole: #5c060d;
+  --ink: #fff3ea;
+  --needle: #2a0508;
+  --muted: #f3c3bd;
+  --lamp: #ff5a4d;
+  --lamp-glow: rgba(255, 90, 77, .8);
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { box-sizing: border-box; height: 100%; overflow: hidden; background: var(--case); overscroll-behavior: none; }
+body {
+  height: 100%; margin: 0; overflow: hidden; overscroll-behavior: none;
+  background: var(--case); color: var(--ivory);
+  font-family: var(--face-body); font-size: 15px; line-height: 1.6;
+  -webkit-user-select: none; user-select: none; -webkit-touch-callout: none;
+  touch-action: manipulation;
+}
+button { font: inherit; color: inherit; }
+button:focus-visible, input:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+
+/* 検査器本体 */
+#app {
+  height: 100%; display: grid; grid-template-rows: auto minmax(0, 1fr) auto;
+  padding-left: var(--gutter-l); padding-right: var(--gutter-r);
+  background-color: var(--case);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='h'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.09' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 -.16'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23h)'/%3E%3C/svg%3E");
+}
+.plate {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding-block: 12px 10px;
+}
+.plate h1 {
+  margin: 0; font-family: var(--face-display); font-size: 24px; font-weight: 700;
+  line-height: 1.2; letter-spacing: .22em; color: var(--ivory);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, .55);
+}
+.plate p { margin: 2px 0 0; font-size: 10.5px; letter-spacing: .14em; color: var(--muted); }
+.lamp { display: flex; align-items: center; gap: 8px; flex: none; }
+.lamp span:last-child {
+  font-family: var(--face-label); font-weight: 900; font-size: 11px; letter-spacing: .14em; color: var(--muted);
+}
+.jewel {
+  width: 16px; height: 16px; border-radius: 50%;
+  background: radial-gradient(circle at 36% 32%, rgba(255, 255, 255, .75), var(--lamp) 42%, rgba(0, 0, 0, .5) 100%);
+  box-shadow: 0 0 0 2px var(--case-lo), 0 0 0 3px var(--brass), 0 0 12px 3px var(--lamp-glow);
+}
+
+/* 記録紙 */
+.feed { position: relative; min-height: 0; overflow: hidden; container-type: size; background: var(--paper); }
+#paper { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.feed::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  box-shadow: inset 0 10px 12px -8px rgba(0, 0, 0, .45), inset 7px 0 8px -7px rgba(0, 0, 0, .3), inset -7px 0 8px -7px rgba(0, 0, 0, .3);
+}
+.slot {
+  height: 22px; position: relative;
+  background: linear-gradient(var(--case-lo), var(--case-lo) 7px, var(--case-hi) 7px, var(--case) 100%);
+  box-shadow: inset 0 1px 0 rgba(0, 0, 0, .6);
+}
+
+/* 測定開始のダイヤル */
+#dial {
+  position: absolute; left: 50%; top: 58%;
+  width: min(92cqw, 66cqh, 360px); aspect-ratio: 1; max-width: 100%;
+  transform: translate(-50%, -50%);
+  touch-action: none; cursor: pointer;
+  transition: opacity .22s ease, transform .22s ease;
+}
+#dial svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; filter: drop-shadow(0 6px 10px rgba(12, 28, 28, .4)); }
+#dial.gone { opacity: 0; transform: translate(-50%, -50%) scale(.92); pointer-events: none; }
+#startBtn {
+  position: absolute; left: 50%; top: 50%; width: 46%; height: 46%;
+  transform: translate(-50%, -50%); padding: 0; border: 0; border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle at 38% 30%, #fbf6e8, var(--ivory) 46%, #cfc4a6 100%);
+  box-shadow: 0 0 0 3px var(--brass), 0 0 0 5px var(--case-lo), 0 7px 0 1px #97895f, 0 12px 16px rgba(0, 0, 0, .45);
+  color: #1b2c2f; font-family: var(--face-label); font-weight: 900;
+  font-size: clamp(19px, 7.4cqw, 28px); letter-spacing: .08em;
+  transition: transform .08s ease, box-shadow .08s ease;
+}
+#dial.pressed #startBtn {
+  transform: translate(-50%, calc(-50% + 5px));
+  box-shadow: 0 0 0 3px var(--brass), 0 0 0 5px var(--case-lo), 0 2px 0 1px #97895f, 0 3px 6px rgba(0, 0, 0, .45);
+}
+
+/* 嘘の判定 */
+/* 黒地に朱赤の極太ゴシック、上下に警告の斜めストライプを入れた警報パネル */
+#verdict {
+  --alert: #ec3a1f; --alert-bg: #0b0b0b;
+  position: absolute; left: 5%; right: 5%; top: 52%; transform: translateY(-50%);
+  display: grid; gap: min(2.6cqw, 2cqh); justify-items: stretch;
+  background: var(--alert-bg); color: var(--alert);
+  font-family: "Hiragino Sans", "Hiragino Kaku Gothic StdN", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
+  font-weight: 900; line-height: 1; text-align: center; white-space: nowrap;
+  box-shadow: 0 12px 30px rgba(30, 0, 0, .55);
+  pointer-events: none;
+}
+#verdict .hazard {
+  height: min(7cqw, 5.5cqh);
+  background: repeating-linear-gradient(-45deg, var(--alert) 0 14px, var(--alert-bg) 14px 28px);
+  background-size: 39.6px 39.6px;
+  animation: hazard .9s linear infinite;
+}
+@keyframes hazard { to { background-position: 39.6px 0; } }
+#verdict .big { font-size: min(19.5cqw, 19cqh); letter-spacing: .02em; padding-inline: 4%; margin-block: min(1cqw, 1cqh) 0; }
+#verdict .box {
+  margin-inline: 6%; padding: min(1.6cqw, 1.3cqh) 0;
+  border: 3px solid var(--alert); font-size: min(8.6cqw, 6.5cqh); letter-spacing: .12em;
+}
+#verdict .box.en { font-family: "Helvetica Neue", Arial, sans-serif; font-weight: 800; letter-spacing: .08em; }
+#verdict:not([hidden]) { animation: slam .16s cubic-bezier(.2, .9, .3, 1.2) both; }
+@keyframes slam {
+  from { transform: translateY(-50%) scale(1.6); opacity: 0; }
+  to { transform: translateY(-50%) scale(1); opacity: 1; }
+}
+
+/* 測定に戻るかの確認と、測定中の中断 */
+#confirm, #pause {
+  position: fixed; inset: 0; display: grid; place-items: center;
+  padding-left: var(--gutter-l); padding-right: var(--gutter-r);
+  background: rgba(50, 3, 8, .55);
+}
+#pause { background: rgba(10, 24, 26, .6); }
+.ask {
+  width: min(100%, 340px); padding: 24px 20px 20px;
+  background: var(--paper); color: var(--ink);
+  border: 1px solid rgba(255, 255, 255, .35); box-shadow: 0 18px 40px rgba(40, 0, 4, .6);
+  --paper: #efe8d6; --ink: #1b2c2f;
+}
+.ask h2 { margin: 0 0 18px; font-size: 20px; font-weight: 700; line-height: 1.4; text-align: center; }
+.ask div { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.ask button {
+  min-height: 54px; border: 2px solid #1b2c2f; background: transparent; color: #1b2c2f;
+  font-size: 18px; font-weight: 700; cursor: pointer;
+}
+.ask button.yes { background: #1b2c2f; color: #efe8d6; }
+.ask.stack div { grid-template-columns: 1fr; }
+
+/* 設定画面 */
+#settings {
+  position: fixed; inset: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain;
+  padding-block: calc(env(safe-area-inset-top, 0px) + 14px) calc(env(safe-area-inset-bottom, 0px) + 28px);
+  padding-left: var(--gutter-l); padding-right: var(--gutter-r);
+  background: var(--case-lo); touch-action: pan-y;
+}
+.sheet { width: min(100%, 460px); margin-inline: auto; display: grid; gap: 16px; }
+.bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.bar h2 { margin: 0; font-size: 20px; font-weight: 700; line-height: 1.3; }
+.bar button {
+  min-height: 44px; padding-inline: 18px; border: 1px solid var(--brass); background: transparent;
+  color: var(--ivory); font-weight: 700; cursor: pointer;
+}
+.form { display: grid; gap: 14px; padding: 18px 16px; background: var(--paper); color: #1b2c2f; }
+.form h3 { margin: 0; font-size: 17px; font-weight: 700; line-height: 1.35; }
+.form h3 .note { margin-left: 8px; font-size: 12px; font-weight: 400; color: #47605b; }
+.kind { display: grid; grid-template-columns: 1fr 1fr; border: 2px solid #1b2c2f; }
+.kind button { min-height: 46px; border: 0; background: transparent; color: #1b2c2f; font-weight: 700; cursor: pointer; }
+.kind button[aria-pressed="true"] { background: #1b2c2f; color: var(--paper); }
+.row { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 10px; }
+.row label { font-weight: 600; line-height: 1.35; }
+.row label small { display: block; font-size: 12px; font-weight: 400; color: #47605b; }
+.step { display: grid; grid-template-columns: 44px 62px 44px; align-items: stretch; height: 46px; border: 2px solid #1b2c2f; }
+.step button { border: 0; background: transparent; color: #1b2c2f; font-size: 22px; font-weight: 700; line-height: 1; cursor: pointer; touch-action: manipulation; }
+.step input {
+  width: 100%; min-width: 0; border: 0; border-inline: 2px solid #1b2c2f; border-radius: 0; background: #fff;
+  color: #1b2c2f; font-family: var(--face-figure); font-size: 18px; font-weight: 600; text-align: center;
+  -webkit-user-select: text; user-select: text; -moz-appearance: textfield; appearance: textfield;
+}
+.step input::-webkit-outer-spin-button, .step input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.group { display: grid; gap: 14px; }
+.group + .group { padding-top: 18px; border-top: 2px solid #1b2c2f; }
+.summary { margin: 0; padding-top: 12px; border-top: 1px solid #a5c6b5; font-weight: 600; }
+#notice { margin: 0; padding: 8px 10px; background: #f6e3b2; color: #4e3905; font-size: 13.5px; line-height: 1.5; }
+.signguide { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 14px; align-items: stretch; padding: 14px 16px; border: 1px solid #47635f; }
+.signguide svg { width: 76px; height: 136px; display: block; background: var(--paper); }
+.signguide h3 { margin: 0 0 4px; font-size: 15px; font-weight: 700; line-height: 1.35; }
+.signguide p { margin: 0; font-size: 13.5px; line-height: 1.6; color: var(--muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  #verdict:not([hidden]), #verdict .hazard { animation: none; }
+  #dial, #startBtn { transition: none; }
+}
+</style>
+
+<div id="app" data-state="idle">
+  <header class="plate">
+    <div>
+      <h1>嘘発見器</h1>
+      <p>皮膚電気反応 記録計</p>
+    </div>
+    <div class="lamp" aria-live="polite">
+      <span class="jewel"></span>
+      <span id="status">待機中</span>
+    </div>
+  </header>
+
+  <main class="feed" id="feed">
+    <canvas id="paper" aria-hidden="true"></canvas>
+    <div id="dial">
+      <svg viewBox="-100 -100 200 200" aria-hidden="true"><g id="ring"></g></svg>
+      <button id="startBtn" type="button">測定開始</button>
+    </div>
+    <div id="verdict" hidden role="alert">
+      <div class="hazard"></div>
+      <div class="big">嘘を検知</div>
+      <div class="box">虚偽反応</div>
+      <div class="box en">LIE DETECTED</div>
+      <div class="hazard"></div>
+    </div>
+  </main>
+
+  <footer class="slot"></footer>
+</div>
+
+<div id="confirm" hidden>
+  <div class="ask" role="dialog" aria-modal="true" aria-labelledby="askTitle">
+    <h2 id="askTitle">測定に戻りますか？</h2>
+    <div>
+      <button id="askYes" class="yes" type="button">はい</button>
+      <button id="askNo" type="button">いいえ</button>
+    </div>
+  </div>
+</div>
+
+<div id="pause" hidden>
+  <div class="ask stack" role="dialog" aria-modal="true" aria-labelledby="pauseTitle">
+    <h2 id="pauseTitle">測定を中断しました</h2>
+    <div>
+      <button id="resumeBtn" class="yes" type="button">再開</button>
+      <button id="abortBtn" type="button">測定を中止する</button>
+    </div>
+  </div>
+</div>
+
+<section id="settings" hidden aria-labelledby="setTitle">
+  <div class="sheet">
+    <div class="bar">
+      <h2 id="setTitle">設定</h2>
+      <button id="closeSettings" type="button">閉じる</button>
+    </div>
+
+    <form class="form" id="form">
+      <section class="group" aria-labelledby="first-title">
+        <h3 id="first-title">測定開始をタップしたとき</h3>
+        <div class="row">
+          <label for="first-seconds">嘘が出るまで<small>測定開始からの秒数</small></label>
+          <div class="step"><button type="button" data-group="first" data-target="seconds" data-delta="-1" aria-label="嘘が出るまでを1秒減らす">−</button><input id="first-seconds" data-group="first" data-key="seconds" type="number" inputmode="numeric" min="6" max="600"><button type="button" data-group="first" data-target="seconds" data-delta="1" aria-label="嘘が出るまでを1秒増やす">＋</button></div>
+        </div>
+        <div class="row">
+          <label for="first-lead">サイン<small>嘘が出る何秒前か</small></label>
+          <div class="step"><button type="button" data-group="first" data-target="lead" data-delta="-1" aria-label="サインを1秒減らす">−</button><input id="first-lead" data-group="first" data-key="lead" type="number" inputmode="numeric" min="3" max="60"><button type="button" data-group="first" data-target="lead" data-delta="1" aria-label="サインを1秒増やす">＋</button></div>
+        </div>
+        <p class="summary" id="first-summary"></p>
+      </section>
+      <section class="group" aria-labelledby="resume-title">
+        <h3 id="resume-title">嘘の後、「はい」で戻ったとき</h3>
+        <div class="row">
+          <label for="resume-seconds">嘘が出るまで<small>「はい」からの秒数</small></label>
+          <div class="step"><button type="button" data-group="resume" data-target="seconds" data-delta="-1" aria-label="「はい」の後の嘘を1秒減らす">−</button><input id="resume-seconds" data-group="resume" data-key="seconds" type="number" inputmode="numeric" min="6" max="600"><button type="button" data-group="resume" data-target="seconds" data-delta="1" aria-label="「はい」の後の嘘を1秒増やす">＋</button></div>
+        </div>
+        <div class="row">
+          <label for="resume-lead">サイン<small>嘘が出る何秒前か</small></label>
+          <div class="step"><button type="button" data-group="resume" data-target="lead" data-delta="-1" aria-label="「はい」の後のサインを1秒減らす">−</button><input id="resume-lead" data-group="resume" data-key="lead" type="number" inputmode="numeric" min="3" max="60"><button type="button" data-group="resume" data-target="lead" data-delta="1" aria-label="「はい」の後のサインを1秒増やす">＋</button></div>
+        </div>
+        <p class="summary" id="resume-summary"></p>
+      </section>
+      <p id="notice" hidden role="status"></p>
+    </form>
+
+    <div class="form">
+      <h3>サインの種類<small class="note">最初と「はい」の後で共通</small></h3>
+      <div class="kind" id="signKind">
+        <button type="button" data-sign="hole">紙送り穴</button>
+        <button type="button" data-sign="line">縦線</button>
+      </div>
+    </div>
+
+    <div class="signguide">
+      <svg id="signPreview" viewBox="0 0 76 136" role="img"></svg>
+      <div>
+        <h3>サインの読み方</h3>
+        <p id="signText"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(() => {
+  'use strict';
+
+  /* ---------- 定数 ---------- */
+  const GROUPS = ['first', 'resume'];   // 最初の測定と、「はい」で戻った後の測定
+  const STORE_KEY = 'lie-detector-settings-v2';
+  const OLD_STORE_KEY = 'lie-detector-settings-v1';   // 上下左右のモードがあった頃の設定
+  const LONG_PRESS_MS = 3000;
+  const TAP_GUARD_MS = 350;              // 開始や再開の直後のタップを中断と見なさない時間
+
+  const LEAD_MIN = 3, LEAD_MAX = 60;     // サインは嘘の何秒前か
+  const LEAD_MARGIN = 3;                 // 嘘の秒数は「サイン + 3秒」以上
+  const DELAY_MAX = 600;
+
+  const SAMPLE_DT = 1 / 120;             // 線を記録する間隔(秒)
+  const SWING_SECONDS = 1.05;            // 片側へ振れる平均の秒数
+  // 針の位置は、中央が0、方眼の右端の太線が1。中央から右へ1本目の太線(サイン線)が0.5
+  const SIGN_LINE = 0.5;                 // 線がここに触れたらサイン
+  const SIGN_OVER_MIN = 0.06, SIGN_OVER_MAX = 0.11; // サインで線を越える量
+  const AMP_MIN = 0.16, AMP_MAX = 0.46;  // 通常の振れ幅の範囲(左側)
+  const RIGHT_MAX = 0.29;                // 通常の右への振れの上限。サイン線まで余白を残す
+  const DRIFT_AMP = 0.065;               // 中心のゆっくりしたずれの最大
+  const TREMOR_AMP = 0.02;               // 細かい震え
+  const HOLE_GAP = 36;                   // 紙送り穴の間隔(px)
+  const HOLE_R = 5.5;                    // 紙送り穴の半径
+  const SIGN_HOLE_R = 4.8;               // サインの穴(左右とも小さい)の半径
+  const PLATEAU_CHANCE = 0.28;           // 振れの途中で一瞬止まる確率
+  const QUIET_SECONDS = 2;               // 測定開始から、ゆるやかに振れる秒数(質問の途中を想定)
+  const QUIET_AMP = 0.25;                // その間の振れ幅の倍率
+  const RED_DELAY = 0.5;                // 大きく振れ始めてから、赤い画面と文字を出すまでの秒数
+  const CALM_AFTER = 5;                  // 赤い画面と文字が出てから、揺れを収め始めるまでの秒数
+  const CALM_SECONDS = 2;                // 揺れを収めるのにかける秒数
+  const CALM_LEVEL = 0.04;               // 収まった後に残る揺れの倍率(ほぼ動かない)
+  const TAP_READY = 2.4;                 // 振れ始めてから、タップで確認画面を出せるようになるまでの秒数
+
+  const DEFAULTS = {
+    first:  { seconds: 30, lead: 6 },
+    resume: { seconds: 20, lead: 6 },
+  };
+
+  /* ---------- 設定の保存 ---------- */
+  const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
+  const toInt = (v, fallback) => { const n = Math.round(Number(v)); return Number.isFinite(n) ? n : fallback; };
+
+  // サインの後に嘘が来る順序を常に保つ
+  function normalize(c, group) {
+    const d = DEFAULTS[group];
+    const lead = clamp(toInt(c.lead, d.lead), LEAD_MIN, LEAD_MAX);
+    const seconds = clamp(toInt(c.seconds, d.seconds), lead + LEAD_MARGIN, DELAY_MAX);
+    return { seconds, lead };
+  }
+
+  function loadSettings() {
+    const read = key => { try { return JSON.parse(localStorage.getItem(key)) || null; } catch (e) { return null; } };
+    let saved = read(STORE_KEY);
+    if (!saved) {   // 以前の設定があれば、中央(通常モード)の値とサインの種類を引き継ぐ
+      const old = read(OLD_STORE_KEY) || {};
+      saved = { first: old.center, signType: old.signType };
+    }
+    const out = {};
+    GROUPS.forEach(g => { out[g] = normalize({ ...DEFAULTS[g], ...(saved[g] || {}) }, g); });
+    out.signType = saved.signType === 'line' ? 'line' : 'hole';   // サインの種類(最初と「はい」の後で共通)
+    return out;
+  }
+  function saveSettings() {
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(settings)); } catch (e) { /* 保存できない環境では起動中だけ有効 */ }
+  }
+  const settings = loadSettings();
+
+  /* ---------- 針の動きの計画 ---------- */
+  // 客に規則性を読まれないよう、振れ幅、速さ、中心位置を毎回変える。
+  // 縦線のサイン: 通常の振れはサイン線に届かないので、線に触れるのはサインの1回だけになる。
+  // 穴のサイン: 針は自由に振れ、サインの時刻にペン先の高さにある穴を小さく描く。
+  // opts.signType: 'hole' | 'line'
+  // opts.hole: { ref, period } 穴がペン先の高さに来る時刻の基準と間隔(秒)。
+  //            穴の並びを動かさずに済むよう、サインの時刻をいちばん近い穴に合わせる
+  function buildRun(t0, from, cfg, rnd = Math.random, opts = {}) {
+    const signType = opts.signType === 'line' ? 'line' : 'hole';
+    let delay = cfg.seconds;
+    if (signType === 'hole' && opts.hole) {
+      const { ref, period } = opts.hole;
+      const sign0 = t0 + delay - cfg.lead;
+      let shift = ((ref - sign0) % period + period) % period;
+      if (shift > period / 2) shift -= period;
+      if (sign0 + shift - t0 < 1) shift += period;   // サインが開始直後に来すぎないようにする
+      delay += shift;
+    }
+    const lieAt = t0 + delay;
+    const signAt = lieAt - cfg.lead;                // サインの時刻
+    const vary = (value, range) => value * (1 - range + rnd() * 2 * range);
+
+    const run = {
+      t0, lieAt, signAt, signType, segs: [], wild: [], delay,
+      phase: Array.from({ length: 5 }, () => rnd() * Math.PI * 2),
+    };
+    const segs = run.segs;
+    let t = t0, pos = from;
+    const push = (to, dur) => { segs.push({ t0: t, t1: t + dur, a: pos, b: to }); t += dur; pos = to; };
+
+    let level = 0.24 + rnd() * 0.14;
+    const nextAmp = side => {
+      level = clamp(level + (rnd() - 0.5) * 0.2, AMP_MIN, AMP_MAX * 0.85);
+      const amp = rnd() < 0.14 ? clamp(level * 1.35, AMP_MIN, AMP_MAX) : level;
+      return side > 0 ? Math.min(amp * 0.85, RIGHT_MAX - rnd() * 0.07) : amp;
+    };
+
+    // 1回の振れ。途中で一瞬止まる動きを混ぜる
+    const swing = (to, dur) => {
+      const a = pos, move = to - a;
+      if (rnd() < PLATEAU_CHANCE) {
+        const at = 0.4 + rnd() * 0.3;
+        const hold = dur * (0.14 + rnd() * 0.1);
+        push(a + move * at, dur * 0.52);
+        push(a + move * (at + 0.05 + rnd() * 0.05), hold);
+        push(to, dur * 0.48 - hold);
+      } else {
+        push(to, dur);
+      }
+    };
+    // 測定開始から QUIET_SECONDS 秒は、まだ質問の途中なので、ゆるやかに小さく振れる
+    const quiet = () => (t - t0 < QUIET_SECONDS ? QUIET_AMP * (0.8 + rnd() * 0.4) : 1);
+
+    // 穴のサイン: 針の動きには何も仕込まない
+    if (signType === 'hole') {
+      let side = from > 0 ? -1 : 1;
+      while (t < lieAt) {
+        const q = quiet();
+        swing(side * nextAmp(-1) * q, vary(SWING_SECONDS, 0.3) * (q < 1 ? 1.35 : 1));
+        side = -side;
+      }
+      return addLieSwings(run, rnd);
+    }
+
+    // サインの振れ: 左から、サイン線を少し越える位置まで右へ振れる
+    const signDur = vary(SWING_SECONDS * 1.1, 0.12);
+    const signPeak = SIGN_LINE + SIGN_OVER_MIN + rnd() * (SIGN_OVER_MAX - SIGN_OVER_MIN);
+    const signFrom = -nextAmp(-1);
+    // ease の振れで、サイン線を越える瞬間が振れの何割の時点か(中心のずれは後で補正する)
+    const crossFrac = Math.acos(1 - 2 * clamp((SIGN_LINE - signFrom) / (signPeak - signFrom), 0, 1)) / Math.PI;
+
+    // サインの振れが左から始まるよう、偶数回の振れで時間を割り振る
+    const span = Math.max(1.2, signAt - signDur * crossFrac - t0);
+    const count = Math.max(2, 2 * Math.round(span / (2 * SWING_SECONDS)));
+    const weights = Array.from({ length: count }, () => { const r = rnd(); return 0.62 + r * r * 1.15; });
+    const total = weights.reduce((sum, w) => sum + w, 0);
+    weights.forEach((w, i) => {
+      const side = i % 2 === 0 ? 1 : -1;
+      const last = i === count - 1;
+      if (last) push(signFrom, span * w / total); else swing(side * nextAmp(side) * quiet(), span * w / total);
+    });
+    const preCount = segs.length;
+    push(signPeak, signDur);
+    const signSeg = segs[segs.length - 1];
+
+    // 中心のずれを含めた実際の針がサイン線に触れる時刻を、signAt にぴったり合わせる
+    for (let k = 0; k < 6; k++) {
+      signSeg.b = signPeak - wander(run, signSeg.t1);
+      const cross = crossingTime(run, signSeg);
+      const shift = signAt - cross;
+      if (Math.abs(shift) < 1e-4) break;
+      const pre = signSeg.t0 - t0, scale = (pre + shift) / pre;
+      for (let i = 0; i < preCount; i++) {
+        segs[i].t0 = t0 + (segs[i].t0 - t0) * scale;
+        segs[i].t1 = t0 + (segs[i].t1 - t0) * scale;
+      }
+      signSeg.t0 += shift; signSeg.t1 += shift;
+    }
+    run.signAt = crossingTime(run, signSeg);
+    t = signSeg.t1; pos = signSeg.b;
+
+    // サインの後は、サイン線に届かない振れだけ
+    let side = -1;
+    while (t < lieAt) {
+      swing(side * nextAmp(side), vary(SWING_SECONDS, 0.3));
+      side = -side;
+    }
+    return addLieSwings(run, rnd);
+  }
+
+  // 嘘のときの大きな振れ。最初の1回だけ用意し、続きは needleAt が必要な分だけ足していく
+  function addLieSwings(run, rnd) {
+    const a = settled(run, run.lieAt), dir = a > 0 ? -1 : 1;
+    run.wild.push({ t0: run.lieAt, t1: run.lieAt + 0.07 + rnd() * 0.05, a, b: dir * (0.8 + rnd() * 0.2) });
+    return run;
+  }
+
+  // 激しく不規則な振れを1つ足す。大きな往復を主に、小刻みな戻りと一瞬のためを混ぜる
+  function addWild(run, rnd = Math.random) {
+    const last = run.wild[run.wild.length - 1], a = last.b, p = rnd();
+    let to, dur;
+    if (p < 0.12) {                          // 一瞬ためる
+      to = clamp(a + (rnd() - 0.5) * 0.12, -1, 1);
+      dur = 0.08 + rnd() * 0.17;
+    } else if (p < 0.32) {                   // 小刻みに戻る
+      to = clamp(a - Math.sign(a || 1) * (0.12 + rnd() * 0.28), -1, 1);
+      dur = 0.03 + rnd() * 0.05;
+    } else {                                 // 大きく振れる。たまに同じ側へもう一度振れる
+      const side = rnd() < 0.85 ? -Math.sign(a || 1) : Math.sign(a || 1);
+      to = side * (0.45 + rnd() * 0.55);
+      dur = (0.04 + rnd() * 0.1) * (0.6 + Math.abs(to - a) * 0.45);
+    }
+    run.wild.push({ t0: last.t1, t1: last.t1 + dur, a, b: to });
+  }
+
+  // サインの振れの中で、針がサイン線に初めて触れる時刻(先頭から探して二分探索で詰める)
+  function crossingTime(run, seg) {
+    const at = t => onSeg(seg, t) + wander(run, t);
+    const step = 1 / 500;
+    let lo = seg.t0, hi = seg.t1;
+    for (let t = seg.t0 + step; t <= seg.t1 + step / 2; t += step) {
+      if (at(t) >= SIGN_LINE) { lo = t - step; hi = t; break; }
+    }
+    if (at(hi) < SIGN_LINE) return hi;
+    for (let i = 0; i < 30; i++) {
+      const mid = (lo + hi) / 2;
+      if (at(mid) >= SIGN_LINE) hi = mid; else lo = mid;
+    }
+    return hi;
+  }
+
+  const ease = u => 0.5 - 0.5 * Math.cos(Math.PI * u);
+  const onSeg = (s, t) => s.a + (s.b - s.a) * ease(clamp((t - s.t0) / (s.t1 - s.t0), 0, 1));
+
+  function pick(list, t) {
+    let lo = 0, hi = list.length - 1;
+    while (lo < hi) {
+      const mid = (lo + hi) >> 1;
+      if (list[mid].t1 <= t) lo = mid + 1; else hi = mid;
+    }
+    return list[lo];
+  }
+
+  // 中心のゆっくりしたずれと、強さが変わる細かい震え
+  function wander(run, t) {
+    const [p1, p2, p3, p4, p5] = run.phase;
+    // 開始直後は0から入り、ゆるやかな間は中心のずれと震えも弱める
+    const fade = clamp((t - run.t0) / 1.2, 0, 1) * (0.35 + 0.65 * clamp((t - run.t0 - QUIET_SECONDS) / 0.8, 0, 1));
+    const drift = DRIFT_AMP * (0.62 * Math.sin(2 * Math.PI * 0.061 * t + p1) + 0.38 * Math.sin(2 * Math.PI * 0.137 * t + p2));
+    const gust = Math.sin(2 * Math.PI * 0.083 * t + p3) * Math.sin(2 * Math.PI * 0.031 * t + p4);
+    const strength = 0.6 + 1.5 * gust * gust;
+    const shake = 0.5 * Math.sin(2 * Math.PI * 7.3 * t + p5) +
+      0.3 * Math.sin(2 * Math.PI * 11.1 * t + p3) +
+      0.2 * Math.sin(2 * Math.PI * 4.7 * t + p4);
+    // サイン線に触れる前後は震えを弱め、線に何度も触れたように見えないようにする
+    const dt = t - run.signAt;
+    const calm = run.signType === 'line' ? 1 - 0.85 * Math.exp(-((dt / (dt < 0 ? 0.4 : 1.0)) ** 2)) : 1;
+    return fade * (drift + TREMOR_AMP * strength * shake * calm);
+  }
+
+  const settled = (run, t) => onSeg(pick(run.segs, t), t) + wander(run, t);
+
+  function needleAt(run, t) {
+    if (t < run.lieAt) return settled(run, t);
+    while (run.wild[run.wild.length - 1].t1 <= t) addWild(run);
+    // 細かいビリつきを重ねる(振れ始めの0.2秒でなめらかに入れる)
+    const p = run.phase[0], jitter = clamp((t - run.lieAt) / 0.2, 0, 1) *
+      (0.025 * Math.sin(2 * Math.PI * 19 * t + p) + 0.015 * Math.sin(2 * Math.PI * 31 * t + 2 * p));
+    // 文字が出て CALM_AFTER 秒たったら、CALM_SECONDS 秒かけてほぼ動かないところまで収める
+    const calmAt = run.lieAt + RED_DELAY + CALM_AFTER;
+    const calm = t <= calmAt ? 1 : CALM_LEVEL + (1 - CALM_LEVEL) * (1 - ease(clamp((t - calmAt) / CALM_SECONDS, 0, 1)));
+    return clamp((onSeg(pick(run.wild, t), t) + jitter) * calm, -1.02, 1.02);
+  }
+
+  /* ---------- 画面の参照 ---------- */
+  const $ = id => document.getElementById(id);
+  const root = document.documentElement;
+  const app = $('app'), feed = $('feed'), canvas = $('paper'), dial = $('dial'), startBtn = $('startBtn');
+  const verdict = $('verdict'), statusEl = $('status'), confirmBox = $('confirm'), pauseBox = $('pause'), settingsEl = $('settings');
+  const ctx = canvas.getContext('2d');
+
+  let state = 'idle';     // idle / testing / paused / alarm / stopped / confirm / settings
+  let cfg = settings.first, run = null;   // cfg: いま使っている嘘の秒数とサインの秒数
+  let paperTime = 0, clockBase = 0, clockStart = 0;
+  let samples = [], sampleStart = 0, nextSample = 0;
+  let cw = 0, ch = 0, penY = 0, speed = 80;
+  let holeRef = 0;        // この時刻にペン先の高さにあった穴が、穴の並びの基準
+  // 紙送りの記録。速さが変わった時刻と、その時点までに送った長さ(px)。
+  // 速さが変わっても、すでに描いた線と穴は送った長さどおりの位置に残る
+  let feedLog = [{ t: 0, pos: 0, v: 80 }];
+  let palette = {};
+
+  function setState(next) {
+    state = next;
+    app.dataset.state = next;
+  }
+
+  /* ---------- 描画 ---------- */
+  function readPalette() {
+    const css = getComputedStyle(root);
+    const v = name => css.getPropertyValue(name).trim();
+    palette = { paper: v('--paper'), grid: v('--grid'), major: v('--grid-major'), hole: v('--hole'), ink: v('--ink'), needle: v('--needle'), brass: v('--brass') };
+  }
+
+  function resize() {
+    const rect = feed.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 3);
+    cw = rect.width; ch = rect.height;
+    canvas.width = Math.round(cw * dpr);
+    canvas.height = Math.round(ch * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    penY = Math.round(clamp(ch * 0.2, 96, 170));
+    updateSpeed();
+    draw();
+  }
+
+  // 時刻 t までに送った紙の長さ(px)
+  function paperPos(t) {
+    let i = feedLog.length - 1;
+    while (i > 0 && feedLog[i].t > t) i--;
+    const f = feedLog[i];
+    return f.pos + (t - f.t) * f.v;
+  }
+
+  // 記録紙の速さ。ペン先から下の端までを、ちょうどサインの秒数で流す。
+  // 変えるのはいまの時刻から先だけで、すでに流れた紙はそのまま
+  function updateSpeed() {
+    speed = (ch - penY) / cfg.lead;
+    const last = feedLog[feedLog.length - 1];
+    if (last.t >= paperTime) last.v = speed;
+    else feedLog.push({ t: paperTime, pos: paperPos(paperTime), v: speed });
+  }
+  function resetFeed() { feedLog = [{ t: 0, pos: 0, v: speed }]; }
+
+  const SIDE_MARGIN = 22;
+  // n=1 が方眼の端の太線、n=0.5 が中央から右へ1本目の太線(サイン線)と重なる
+  const writeX = n => cw / 2 + n * (cw / 2 - SIDE_MARGIN);
+
+  function draw() {
+    if (!cw) return;
+    const shift = paperPos(paperTime);
+    ctx.fillStyle = palette.paper;
+    ctx.fillRect(0, 0, cw, ch);
+
+    // 紙に印刷された方眼(縦線は固定、横線は紙と一緒に流れる)
+    const minor = 18, major = minor * 5;
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = palette.grid;
+    ctx.beginPath();
+    for (let x = SIDE_MARGIN; x <= cw - SIDE_MARGIN + .5; x += (cw - 2 * SIDE_MARGIN) / 20) { const px = Math.round(x) + .5; ctx.moveTo(px, 0); ctx.lineTo(px, ch); }
+    for (let y = shift % minor; y < ch; y += minor) { const py = Math.round(y) + .5; ctx.moveTo(SIDE_MARGIN, py); ctx.lineTo(cw - SIDE_MARGIN, py); }
+    ctx.stroke();
+    ctx.strokeStyle = palette.major;
+    ctx.beginPath();
+    [0, 5, 10, 15, 20].forEach(i => { const px = Math.round(SIDE_MARGIN + i * (cw - 2 * SIDE_MARGIN) / 20) + .5; ctx.moveTo(px, 0); ctx.lineTo(px, ch); });
+    for (let y = shift % major; y < ch; y += major) { const py = Math.round(y) + .5; ctx.moveTo(SIDE_MARGIN, py); ctx.lineTo(cw - SIDE_MARGIN, py); }
+    ctx.stroke();
+
+    // 紙送りの穴。holeRef の時刻にペン先の高さにあった穴を k=0 として数える
+    // 穴のサインでは、サインの時刻の穴(k=0)だけ左右とも小さく描く
+    ctx.fillStyle = palette.hole;
+    const base = penY + shift - paperPos(holeRef);
+    const signHole = run && run.signType === 'hole' && Math.abs(run.signAt - holeRef) < 1e-6;
+    for (let k = Math.floor((-12 - base) / HOLE_GAP); base + k * HOLE_GAP < ch + 12; k++) {
+      const y = base + k * HOLE_GAP, r = signHole && k === 0 ? SIGN_HOLE_R : HOLE_R;
+      ctx.beginPath(); ctx.arc(10.5, y, r, 0, Math.PI * 2); ctx.arc(cw - 10.5, y, r, 0, Math.PI * 2); ctx.fill();
+    }
+
+    // 記録された線
+    if (samples.length > 1) {
+      // 紙の下の端より上に残っている、いちばん古い点を探す
+      const yAt = i => penY + shift - paperPos(sampleStart + i * SAMPLE_DT);
+      let lo = 0, hi = samples.length - 1;
+      while (lo < hi) { const mid = (lo + hi) >> 1; if (yAt(mid) > ch + 4) lo = mid + 1; else hi = mid; }
+      const first = Math.max(0, lo - 1);
+      ctx.strokeStyle = palette.ink;
+      ctx.lineWidth = 1.7;
+      ctx.lineJoin = 'round';
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      // 紙が遅いときは点が重なるので間引く(間引く位置は固定して線が揺らがないようにする)
+      const stride = Math.max(1, Math.floor(0.4 / (speed * SAMPLE_DT)));
+      const begin = first - (first % stride);
+      for (let i = begin; i < samples.length; i += stride) {
+        const t = sampleStart + i * SAMPLE_DT;
+        const x = writeX(samples[i]), y = penY + shift - paperPos(t);
+        if (i === begin) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.lineTo(writeX(currentNeedle()), penY);
+      ctx.stroke();
+    }
+
+    drawNeedle(writeX(currentNeedle()));
+  }
+
+  function currentNeedle() { return run ? needleAt(run, paperTime) : 0; }
+
+  function drawNeedle(tipX) {
+    const pivotX = cw / 2, pivotY = -penY * 1.15;
+    const dx = tipX - pivotX, dy = penY - pivotY, len = Math.hypot(dx, dy);
+    const nx = -dy / len, ny = dx / len;
+    const wideAt = t => ({ x: pivotX + dx * t, y: pivotY + dy * t });
+    const blade = (ox, oy, fill) => {
+      const a = wideAt(0.1), b = wideAt(1);
+      ctx.fillStyle = fill;
+      ctx.beginPath();
+      ctx.moveTo(a.x + nx * 5 + ox, a.y + ny * 5 + oy);
+      ctx.lineTo(b.x + nx * 1 + ox, b.y + ny * 1 + oy);
+      ctx.lineTo(b.x - nx * 1 + ox, b.y - ny * 1 + oy);
+      ctx.lineTo(a.x - nx * 5 + ox, a.y - ny * 5 + oy);
+      ctx.closePath();
+      ctx.fill();
+    };
+    blade(5, 7, 'rgba(14, 30, 30, .2)');
+    blade(0, 0, palette.needle);
+    ctx.fillStyle = palette.brass;
+    ctx.beginPath(); ctx.arc(tipX, penY, 3.2, 0, Math.PI * 2); ctx.fill();
+  }
+
+  /* ---------- 測定の進行 ---------- */
+  let tapGuardUntil = 0;
+  let wakeLock = null;
+  async function keepAwake() {
+    try { if ('wakeLock' in navigator && !wakeLock) { wakeLock = await navigator.wakeLock.request('screen'); wakeLock.addEventListener('release', () => { wakeLock = null; }); } } catch (e) { /* 使えない環境では何もしない */ }
+  }
+  function allowSleep() { if (wakeLock) { wakeLock.release().catch(() => {}); wakeLock = null; } }
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible' && state !== 'idle' && state !== 'settings') keepAwake();
+  });
+
+  // runCfg を渡すと、その回だけ嘘の出方を差し替える(「はい」で戻ったとき)
+  // cfg の秒数で、いまの時刻から測定を始める(紙の速さは先に updateSpeed で合わせておく)
+  function beginRun(startPos) {
+    // 穴の基準を、いまの速さで流れた場合の時刻に直す。穴の並びは送った長さで決まっている
+    const ref = paperTime + (paperPos(holeRef) - paperPos(paperTime)) / speed;
+    run = buildRun(paperTime, startPos, cfg, Math.random, {
+      signType: settings.signType,
+      hole: { ref, period: HOLE_GAP / speed },
+    });
+    if (run.signType === 'hole') holeRef = run.signAt;   // 穴の位置は変わらず、サインの穴が k=0 になる
+    clockBase = paperTime;
+    clockStart = performance.now();
+    root.classList.remove('lie');
+    root.classList.add('testing');
+    readPalette();
+    verdict.hidden = true;
+    statusEl.textContent = '測定中';
+    setState('testing');
+    requestAnimationFrame(tick);
+  }
+
+  function startTest() {
+    cfg = settings.first;
+    tapGuardUntil = performance.now() + TAP_GUARD_MS;
+    paperTime = 0; samples = []; sampleStart = 0; nextSample = 0; holeRef = 0;
+    updateSpeed();
+    resetFeed();
+    dial.classList.add('gone');
+    keepAwake();
+    beginRun(0);
+  }
+
+  // testing: 測定中 / shaking: 大きく振れ始めた(まだ赤くしない) / alarm: 赤い画面と文字
+  // stopped: 赤い画面のままタップを受け付ける / confirm: 確認画面。どの状態でも針と紙は動き続ける
+  const RUNNING = ['testing', 'shaking', 'alarm', 'stopped', 'confirm'];
+  function tick(now) {
+    if (!RUNNING.includes(state)) return;
+    paperTime = clockBase + (now - clockStart) / 1000;
+    if (paperTime < clockBase) paperTime = clockBase;
+    while (nextSample <= paperTime) { samples.push(needleAt(run, nextSample)); nextSample += SAMPLE_DT; }
+    if (state === 'testing' && paperTime >= run.lieAt) setState('shaking');
+    if (state === 'shaking' && paperTime >= run.lieAt + RED_DELAY) raiseAlarm();
+    if (state === 'alarm' && paperTime >= run.lieAt + TAP_READY) setState('stopped');
+    draw();
+    requestAnimationFrame(tick);
+  }
+
+  function pauseTest() {
+    setState('paused');
+    statusEl.textContent = '中断中';
+    pauseBox.hidden = false;
+    $('resumeBtn').focus({ preventScroll: true });
+  }
+
+  function resumeTest() {
+    pauseBox.hidden = true;
+    clockBase = paperTime;
+    clockStart = performance.now();
+    statusEl.textContent = '測定中';
+    tapGuardUntil = clockStart + TAP_GUARD_MS;
+    setState('testing');
+    requestAnimationFrame(tick);
+  }
+
+  function raiseAlarm() {
+    root.classList.remove('testing');
+    root.classList.add('lie');
+    readPalette();
+    statusEl.textContent = '虚偽反応';
+    verdict.hidden = false;
+    setState('alarm');
+  }
+
+  function resetToIdle() {
+    confirmBox.hidden = true;
+    pauseBox.hidden = true;
+    root.classList.remove('lie', 'testing');
+    readPalette();
+    verdict.hidden = true;
+    statusEl.textContent = '待機中';
+    run = null; paperTime = 0; samples = []; holeRef = 0;
+    cfg = settings.first;
+    updateSpeed();
+    resetFeed();
+    dial.classList.remove('gone');
+    allowSleep();
+    setState('idle');
+    draw();
+  }
+
+  /* ---------- 測定開始ボタン周りの操作 ---------- */
+  // ダイヤルのどこをタップしても測定開始。長押しで設定を開くのは中央のボタンだけ
+  function zoneAt(x, y) {
+    const r = dial.getBoundingClientRect();
+    const dist = Math.hypot(x - (r.left + r.width / 2), y - (r.top + r.height / 2)), radius = r.width / 2;
+    if (dist > radius) return null;
+    return dist <= radius * 0.46 ? 'button' : 'ring';
+  }
+
+  let press = null;
+  function clearPress() {
+    if (press) clearTimeout(press.timer);
+    press = null;
+    dial.classList.remove('pressed');
+  }
+  dial.addEventListener('pointerdown', e => {
+    if (state !== 'idle') return;
+    const z = zoneAt(e.clientX, e.clientY);
+    if (!z) return;
+    e.preventDefault();
+    clearPress();
+    press = { id: e.pointerId, zone: z, timer: 0 };
+    try { dial.setPointerCapture(e.pointerId); } catch (err) { /* 取得できなくても続行 */ }
+    dial.classList.add('pressed');
+    if (z === 'button') press.timer = setTimeout(() => { clearPress(); openSettings(); }, LONG_PRESS_MS);
+  });
+  dial.addEventListener('pointerup', e => {
+    if (!press || e.pointerId !== press.id) return;
+    clearPress();
+    startTest();
+  });
+  dial.addEventListener('pointercancel', clearPress);
+  dial.addEventListener('contextmenu', e => e.preventDefault());
+  dial.addEventListener('touchstart', e => e.preventDefault(), { passive: false });
+  startBtn.addEventListener('keydown', e => {
+    if (state !== 'idle') return;
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); startTest(); }
+  });
+
+  // 測定中のタップは中断、赤い画面で止まった後のタップは確認画面
+  // click で受ける。pointerup で画面を開くと、直後のクリックが開いたボタンを押してしまう
+  app.addEventListener('click', () => {
+    if (performance.now() < tapGuardUntil) return;
+    if (state === 'testing') { pauseTest(); return; }
+    if (state !== 'stopped') return;
+    setState('confirm');
+    confirmBox.hidden = false;
+    $('askYes').focus({ preventScroll: true });
+  });
+  $('resumeBtn').addEventListener('click', () => { if (state === 'paused') resumeTest(); });
+  $('abortBtn').addEventListener('click', () => { if (state === 'paused') resetToIdle(); });
+  $('askYes').addEventListener('click', () => {
+    if (state !== 'confirm') return;
+    confirmBox.hidden = true;
+    tapGuardUntil = performance.now() + TAP_GUARD_MS;
+    // 針がいまある位置から、「はい」の後の設定で測定に戻る。紙の速さもその設定のサインの秒数に合わせる
+    cfg = settings.resume;
+    updateSpeed();
+    beginRun(currentNeedle());
+  });
+  $('askNo').addEventListener('click', () => { if (state === 'confirm') resetToIdle(); });
+
+  /* ---------- 設定画面 ---------- */
+  // first: 測定開始をタップしたとき / resume: 嘘の後「はい」で測定に戻ったとき
+  const GROUP_LABEL = { first: '', resume: '「はい」の後: ' };
+  const form = $('form'), noticeEl = $('notice');
+
+  function showNotice(text) {
+    noticeEl.textContent = text;
+    noticeEl.hidden = !text;
+  }
+
+  function renderSettings() {
+    GROUPS.forEach(g => {
+      const c = settings[g];
+      $(`${g}-seconds`).value = c.seconds;
+      $(`${g}-lead`).value = c.lead;
+      const from = g === 'first' ? '測定開始' : '「はい」';
+      $(`${g}-summary`).textContent = `${from}から${c.seconds - c.lead}秒後にサイン、${c.seconds}秒後に嘘が出ます。`;
+    });
+  }
+
+  function applyField(group, key, value) {
+    const before = settings[group];
+    const next = normalize({ ...before, [key]: value }, group);
+    settings[group] = next;
+    saveSettings();
+
+    const floor = next.lead + LEAD_MARGIN;
+    let msg = '';
+    if (key === 'lead' && next.lead !== toInt(value, next.lead)) msg = `サインは${LEAD_MIN}〜${LEAD_MAX}秒前で設定できます。`;
+    else if (key === 'lead' && next.seconds !== before.seconds) msg = `サインの${LEAD_MARGIN}秒以上あとに嘘が出るよう、嘘の秒数を${floor}秒に上げました。`;
+    else if (key === 'seconds' && toInt(value, 0) < floor) msg = `サインが${next.lead}秒前なので、${floor}秒より短くできません。`;
+    else if (toInt(value, 0) > DELAY_MAX) msg = `${DELAY_MAX}秒までで設定できます。`;
+    showNotice(msg && GROUP_LABEL[group] + msg);
+    renderSettings();
+  }
+
+  form.addEventListener('submit', e => e.preventDefault());
+  form.addEventListener('click', e => {
+    const stepBtn = e.target.closest('[data-target]');
+    if (!stepBtn) return;
+    const g = stepBtn.dataset.group, k = stepBtn.dataset.target;
+    applyField(g, k, settings[g][k] + Number(stepBtn.dataset.delta));
+  });
+  form.querySelectorAll('input[data-key]').forEach(input => {
+    input.addEventListener('change', e => applyField(input.dataset.group, input.dataset.key, e.target.value));
+  });
+
+  const SIGN_GUIDE = {
+    hole: {
+      text: '左右の<b>紙送り穴が1組だけ小さく</b>なっていたらサインです（図の①）。その穴が記録紙の下の端に届いた瞬間に、嘘が出ます（図の②）。針の動きには何も仕込んでいません。',
+      label: 'サインの図。左右の紙送り穴が1組だけ小さく、その穴が記録紙の下の端に届くと嘘が出る',
+    },
+    line: {
+      text: '線が<b>中央から右へ1本目の太い縦線</b>に触れたらサインです（図の①）。ふだんの振れはこの線に届きません。触れた所が記録紙の下の端に届いた瞬間に、嘘が出ます（図の②）。',
+      label: 'サインの図。線が中央から右へ1本目の太い縦線に触れ、その触れた所が記録紙の下の端に届くと嘘が出る',
+    },
+  };
+
+  function renderSignGuide() {
+    const type = settings.signType;
+    $('signKind').querySelectorAll('[data-sign]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.sign === type)));
+    $('signText').innerHTML = SIGN_GUIDE[type].text;
+    $('signPreview').setAttribute('aria-label', SIGN_GUIDE[type].label);
+    if (type === 'hole') drawHolePreview(); else drawSignPreview();
+  }
+  $('signKind').addEventListener('click', e => {
+    const b = e.target.closest('[data-sign]');
+    if (!b) return;
+    settings.signType = b.dataset.sign;
+    saveSettings();
+    renderSignGuide();
+  });
+
+  function drawHolePreview() {
+    const W = 76, H = 136, cx = W / 2, half = 26, gap = 13, signY = 58, pts = [];
+    const script = [[-0.5, 0.6], [0.7, 1], [-0.4, 1], [0.55, 1], [-0.75, 1.1], [0.45, 1], [-0.3, 0.8], [0.6, 0.7]];
+    const segs = []; let t = 0, pos = 0;
+    script.forEach(([to, dur]) => { segs.push({ t0: t, t1: t + dur, a: pos, b: to }); t += dur; pos = to; });
+    for (let i = 0; i <= 240; i++) {
+      const tt = t * i / 240;
+      pts.push(`${(cx + half * onSeg(pick(segs, tt), tt)).toFixed(1)},${(H * (1 - i / 240)).toFixed(1)}`);
+    }
+    let holes = '';
+    for (let y = signY % gap; y < H; y += gap) {
+      const r = Math.abs(y - signY) < 0.1 ? 2.7 : 3.1;
+      holes += `<circle cx="5.5" cy="${y}" r="${r}" fill="#142427"/><circle cx="${W - 5.5}" cy="${y}" r="${r}" fill="#142427"/>`;
+    }
+    $('signPreview').innerHTML = holes +
+      `<polyline points="${pts.join(' ')}" fill="none" stroke="#1d2a70" stroke-width="1.4" stroke-linejoin="round"></polyline>` +
+      `<circle cx="${W - 5.5}" cy="${signY}" r="5" fill="none" stroke="#c5101d" stroke-width="1.4"/>` +
+      `<text x="${W - 22}" y="${signY + 3.5}" font-size="10" font-weight="700" fill="#c5101d">①</text>` +
+      `<line x1="0" y1="${H - 1}" x2="${W}" y2="${H - 1}" stroke="#c5101d" stroke-width="2" stroke-dasharray="3 2"/>` +
+      `<text x="12" y="${H - 5}" font-size="10" font-weight="700" fill="#c5101d">②</text>`;
+  }
+
+  function drawSignPreview() {
+    const svg = $('signPreview');
+    // 上が新しい記録、下が古い記録。サインの山は下の端に届く直前の位置に描く
+    const W = 76, H = 136, half = 34, cx = W / 2, lineX = cx + half * SIGN_LINE, pts = [];
+    const script = [[-0.3, 0.5], [0.25, 1], [-0.38, 1], [0.2, 1], [-0.3, 1], [SIGN_LINE + 0.08, 1.1], [-0.35, 1], [0.15, 0.6]];
+    const segs = []; let t = 0, pos = 0;
+    script.forEach(([to, dur]) => { segs.push({ t0: t, t1: t + dur, a: pos, b: to }); t += dur; pos = to; });
+    const yOf = tt => H - 4 - (H - 4) * tt / t;   // 古いほど下
+    for (let i = 0; i <= 240; i++) {
+      const tt = t * i / 240;
+      pts.push(`${(cx + half * onSeg(pick(segs, tt), tt)).toFixed(1)},${yOf(tt).toFixed(1)}`);
+    }
+    const peak = segs[5], crossT = peak.t0 + (peak.t1 - peak.t0) * Math.acos(1 - 2 * (SIGN_LINE - peak.a) / (peak.b - peak.a)) / Math.PI;
+    const cy = yOf(crossT);
+    const grid = [-1, -0.5, 0, 0.5, 1].map(n => `<line x1="${cx + half * n}" y1="0" x2="${cx + half * n}" y2="${H}" stroke="${n === SIGN_LINE ? '#c5101d' : '#86b5a0'}" stroke-width="${n === SIGN_LINE ? 1.6 : 0.8}"/>`).join('');
+    svg.innerHTML = grid +
+      `<polyline points="${pts.join(' ')}" fill="none" stroke="#1d2a70" stroke-width="1.6" stroke-linejoin="round"></polyline>` +
+      `<circle cx="${lineX}" cy="${cy.toFixed(1)}" r="3" fill="#c5101d"/>` +
+      `<text x="${lineX + 4}" y="${(cy - 4).toFixed(1)}" font-size="10" font-weight="700" fill="#c5101d">①</text>` +
+      `<line x1="0" y1="${H - 1}" x2="${W}" y2="${H - 1}" stroke="#c5101d" stroke-width="2" stroke-dasharray="3 2"/>` +
+      `<text x="3" y="${H - 5}" font-size="10" font-weight="700" fill="#c5101d">②</text>`;
+  }
+
+  function openSettings() {
+    setState('settings');
+    settingsEl.hidden = false;
+    settingsEl.scrollTop = 0;
+    showNotice('');
+    renderSettings();
+  }
+  $('closeSettings').addEventListener('click', () => {
+    settingsEl.hidden = true;
+    cfg = settings.first;
+    setState('idle');
+    updateSpeed();
+    draw();
+  });
+
+  /* ---------- 起動 ---------- */
+  function buildRing() {
+    const g = $('ring'), ns = 'http://www.w3.org/2000/svg';
+    const add = (name, attrs, parent = g) => {
+      const el = document.createElementNS(ns, name);
+      Object.entries(attrs).forEach(([k, v]) => el.setAttribute(k, v));
+      parent.appendChild(el);
+      return el;
+    };
+    add('circle', { r: 92, fill: '#22383c', stroke: '#c9a75c', 'stroke-width': 1.6 });
+    add('circle', { r: 86, fill: 'none', stroke: '#47635f', 'stroke-width': .7 });
+    for (let i = 0; i < 60; i++) {
+      const a = i * Math.PI / 30, big = i % 15 === 0, mid = i % 5 === 0;
+      const r1 = big ? 66 : (mid ? 76 : 80), r2 = 85;
+      add('line', {
+        x1: r1 * Math.sin(a), y1: -r1 * Math.cos(a), x2: r2 * Math.sin(a), y2: -r2 * Math.cos(a),
+        stroke: big ? '#c9a75c' : '#a9bdb8', 'stroke-width': big ? 2.2 : (mid ? 1.1 : .6),
+      });
+    }
+  }
+
+  buildRing();
+  renderSignGuide();
+  readPalette();
+  window.addEventListener('resize', resize);
+  if (window.ResizeObserver) new ResizeObserver(resize).observe(feed);
+  resize();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+
+  // GitHub Pages などで公開したとき、一度開いたアプリを端末に保存して電波がなくても開けるようにする
+  if ('serviceWorker' in navigator && location.protocol === 'https:') {
+    try { navigator.serviceWorker.register('sw.js').catch(() => {}); } catch (e) { /* 使えない環境では何もしない */ }
+  }
+
+  // PCでの開発用: コンソールから現在の状態を確認できる
+  window.lieDetector = {
+    get state() { return state; },
+    get run() { return run; },
+    get paperTime() { return paperTime; },
+    get geometry() { return { width: cw, height: ch, penY, speed }; },
+    get settings() { return settings; },
+    get holeRef() { return holeRef; },
+    paperPos: t => paperPos(t),
+    plan: buildRun,
+    needle: needleAt,
+  };
+})();
+</script>
+
+</body></html>
